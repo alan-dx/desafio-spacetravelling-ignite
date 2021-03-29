@@ -24,9 +24,14 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-// export default function Home() {
-//   // TODO
-// }
+export default function Home() {
+  return (
+    <>
+      <h1>Home</h1>
+      <h2>spacetravveling</h2>
+    </>
+  )
+}
 
 // export const getStaticProps = async () => {
 //   // const prismic = getPrismicClient();
