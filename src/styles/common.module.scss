@@ -1,1 +1,32 @@
-// TODO
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  height: 100vh;
+
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.postInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 1.6rem;
+  color: var(--gray-300);
+
+
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.53rem;
+  }
+
+  span {
+    display: block;
+    font-size: 0.93rem;
+  }
+
+  &:not(:first-child) span {
+    margin-right: 1.8rem;
+  }
+}

@@ -1,1 +1,47 @@
-// TODO
+.contentContainer {
+  width: 720px;
+  padding: 4rem 0.5rem;
+
+  img {
+    cursor: pointer;
+  }
+
+  main {
+    margin: 3rem 0;
+
+    a {
+      display: block;
+
+      strong {
+        font-size: 1.85rem;
+        
+        transition: color 0.2s;
+      }
+
+      &:hover strong {
+        color: var(--pink);
+      }
+      
+      p {
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+        color: var(--gray-200);
+      }
+      
+      & + a {
+        margin-top: 2rem;
+      }
+      
+    }
+
+  }
+
+  button {
+    border: 0;
+    background: transparent;
+    color: var(--pink);
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+}
