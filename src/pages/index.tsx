@@ -11,7 +11,7 @@ import { format } from 'date-fns'
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
 import { FiCalendar, FiUser} from 'react-icons/fi'
-import { ptBR } from 'date-fns/locale';
+import ptBR from 'date-fns/locale/pt-BR';
 import { useState } from 'react';
 
 interface Post {
@@ -45,7 +45,7 @@ export default function Home({postsPagination} : HomeProps) {
       const newResults = data.results.map(post => {
         return {
           uid: post.uid,  
-          first_publication_date: format(new Date(post.first_publication_date), 'dd/MM/yyyy', { locale: ptBR }),
+          first_publication_date: post.first_publication_date,
           data: {
             title: post.data.title,
             subtitle: post.data.subtitle,
@@ -78,13 +78,13 @@ export default function Home({postsPagination} : HomeProps) {
           <main>
             {
               postsList.results.map(post => (
-                <Link href={`/post/${post.uid}`}>
-                  <a key={post.uid} >
+                <Link key={post.uid} href={`/post/${post.uid}`}>
+                  <a>
                     <strong>{post.data.title}</strong>
-                    <p>{post.data.subtitle}</p>
+                    <p >{post.data.subtitle}</p>
                     <div className={commonStyles.postInfo}>
                       <FiCalendar />
-                      <span>{post.first_publication_date}</span>
+                      <span>{format(new Date(post.first_publication_date), 'dd MMM yyyy' ,{locale: ptBR})}</span>
                       <FiUser />
                       <span>{post.data.author}</span>
                     </div>
@@ -121,7 +121,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const results = postsResponse.results.map(post => {
     return {
       uid: post.uid,  
-      first_publication_date: format(new Date(post.first_publication_date), 'dd/MM/yyyy', { locale: ptBR }),
+      first_publication_date: post.first_publication_date,
       data: {
         title: post.data.title,
         subtitle: post.data.subtitle,
@@ -129,6 +129,8 @@ export const getStaticProps: GetStaticProps = async () => {
       }
     }
   })
+
+  console.log(results)
 
   const next_page = postsResponse.next_page
 
