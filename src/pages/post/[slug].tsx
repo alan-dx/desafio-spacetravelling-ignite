@@ -40,20 +40,24 @@ interface PostProps {
 export default function Post({post}: PostProps) {
 
   const router = useRouter()
-  const [readTime, setReadTime] = useState(() => {
+  const [readTime, setReadTime] = useState(0)
+
+  useEffect(() => {
     let headingWords = 0
     let bodyWords = 0
 
-    post.data.content.forEach((content) => {
-      
-      headingWords = headingWords + content.heading.match(/\S+/g).length
-      bodyWords = bodyWords + content.body.text.match(/\S+/g).length
+    if (!router.isFallback) {
+      post.data.content.forEach((content) => {
+        
+        headingWords = headingWords + content.heading.match(/\S+/g).length
+        bodyWords = bodyWords + content.body['text'].match(/\S+/g).length
+  
+      })
+  
+      setReadTime(Math.ceil((headingWords + bodyWords) / 200))
+    }
 
-    })
-
-    return Math.ceil((headingWords + bodyWords) / 200)
-
-  })
+  }, [router.isFallback, post])
 
   return (
     <>
@@ -86,7 +90,7 @@ export default function Post({post}: PostProps) {
                   <section key={content.heading}>
                     <strong>{content.heading}</strong>
                     <div 
-                      dangerouslySetInnerHTML={{__html: content.body.text}}
+                      dangerouslySetInnerHTML={{__html: content.body['text']}}
                       className={styles.postBody}
                     />
                   </section>
